@@ -99,7 +99,7 @@ mod_import_choice_server <- function(id, analysis_history, step_nb_react, parent
       to_return$protocole <- "Oiseaux des jardins"
       to_return$parameters_text <- paste("Importation du jeu de données issu du protocole :  Oiseaux des jardins")
 
-      to_return$dataset <- data.table::fread(paste0("../../../datasets/bricks/oiseaux.csv"))
+      to_return$dataset <- data.table::fread(paste0("../../datasets/bricks/oiseaux.csv"))
 
 
       # store into reactive value
