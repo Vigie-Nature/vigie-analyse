@@ -31,9 +31,13 @@ mod_navigation_server <- function(id, parent_session){
     ns <- session$ns
 
       observeEvent(input$import_nav, {
-        "pressed"
         updateTabsetPanel(parent_session, "vigie_nature_analyse",
                           selected = "import")
+      })
+
+      observeEvent(input$manip_nav, {
+        updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                          selected = "manip")
       })
 
 

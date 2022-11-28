@@ -12,71 +12,123 @@ mod_manip_choice_ui <- function(id) {
            tags$div(class = "left-border",
                     h3("Etape 3 : Manipulation des données"),
                     p("Vous avez chargé des données, bravo. Il vous faut maintenant les manipuler, faire des calculs pour répondre à votre question de recherche."),
-                    bsCollapse(id = "collapse_import",
+                    p("Vous disposez de quatre familles d'outils pour manipuler vos données. N'hésitez pas à consulter l'aide pour apprendre à utiliser les outils."),
+                    bsCollapse(id = "collapse_manip",
                                multiple = TRUE,
-                               bsCollapsePanel(title = "Importer des données sur les oiseaux",
+                               bsCollapsePanel(title = "Outils pour regrouper des lignes",
                                                tagList(
 
-                                                 h3("Données issues de Vigie-Nature École (données protocolées)"),
+                                                 h3("Résumer des données"),
                                                  rep_br(2),
-                                                 fluidRow(img(src='http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneevne_JrAsU7r.png', align = "center", width="95%")),
+                                                 fluidRow(img(src='gif_help/resumer.gif', align = "center", width = "95%")),
                                                  br(),
-                                                 p("Les données issues de Vigie-Nature École sont organisées d'une manière particulière : chaque ligne représente une espèce. Pour une session d'observation, on aura donc plusieurs lignes (ayant toutes le même numéro d'observation)."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vne_birds"), "Importer un jeu de données issu de Vigie-Nature École",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 p("Cet outil permet de regrouper des lignes par catégorie (par type d'environnement par exemple) en faisant un calcul (une moyenne par exemple) sur les données d'une autre colonne."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_group_by"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
 
-                                                 h3("Importer des données regroupées par départements et par années"),
-                                                 rep_br(2),
-                                                 fluidRow(img(src = "http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneevn_NGWYIuF.png", align = "center", width="95%")),
-                                                 br(),
-                                                 p("Les données issues de ce jeu de données sont issues de Vigie-Nature et Vigie-Nature École. Les données ont été pré-traitées : mois par mois depuis 2012, pour chaque espèce d'oiseaux, vous trouverez le nombre d'individus comptés (l'abondance), le nombre de fois où l'espèce a été vue et le nombre totale d'observations réalisées ce mois dans le département."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vn_birds"), "Importer des données regroupées par départements et par années",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
-                                                 rep_br(2),
-
-                                                 h3("Importer les données issues de l'INPN"),
-                                                 rep_br(2),
-                                                 fluidRow(img(src = "http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneeinpn.png", align = "center", width="95%")),
-                                                 br(),
-                                                 p("Pour ces données, la France a été découpée en carrés de 10 km sur 10 km, ces carrés sont appelés des mailles. L'INPN a ensuite synthétisé dans chaque maille les nombre d'espèces qui ont été vues dans de très nombreuses observations. Ainsi, pour chaque maille, ce jeu de données indique le nombre d'espèces qui ont été déjà signalées toutes dates confondues."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_INPN_birds"), "Importer les données issues de l'INPN",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
-                                                 rep_br(2)
 
                                                )
                                ),
-                               bsCollapsePanel("Importer votre propre jeu de données",
-                                               tagList(
 
-                                                 h3("Importer votre propre jeu de données"),
+                               bsCollapsePanel(title = "Faire des calculs sur plusieurs lignes ou plusieurs colonnes",
+                                               tagList(
+                                                 p("Ces outils créent une nouvelle colonne ou une nouvelle ligne qui est le résultat d'un calcul."),
                                                  br(),
-                                                 p("Cet outil permet d'importer un fichier de données au format CSV. Ce format est accessible dans tous les tableurs, il suffit de choisir ce format lors de l'enregistrement du document. Il est nécessaire de choisir la virgule comme séparateur de colonne. Le contenu de chaque cellule doit être encadré par des guillemets simples (') ou doubles, si ce contenu contient le caractère séparateur de colonne (une virgule donc). Par exemple si un contenu contient une virgule, il faut donc encadrer ce contenu par des guillemets.  aaa, bbb devient donc 'aaa, bbb' ."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_own_file"), "Importer votre propre jeu de données",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
-                                                 rep_br(2)
+
+                                                 h3("Opération sur des colonnes"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/operationcolonnes.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de réaliser une opération sur toutes les valeurs d'une ou plusieurs colonnes."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+
+                                                 br(),br(),
+
+                                                 h3("Opération sur des lignes"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de réaliser une opération sur chaque ligne d'un jeu de données."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
 
                                                )
                                ),
-                               bsCollapsePanel("Importer des données complémentaires",
+                               bsCollapsePanel(title = "Trier, filtrer et masquer des colonnes",
                                                tagList(
-
-                                                 h3("Importer des données pour analyser les résultats Vigie-Chiro"),
+                                                 p("Ces outils permettent de changer l'organisation des données dans les colonnes en les triant (du plus petit au plus grand par exemple), en les filtrant (en affichant qu'une seule valeur) ou en ne gardant que les colonnes jugées utiles."),
                                                  br(),
-                                                 p("Ce fichier contient les correspondances entre les codes taxons et les espèces suivies dans le cadre de Vigie-Chiro. Pour faire la correspondance avec les deux fichiers, il faut utiliser l'outil de manipulation de données : joindre deux fichiers en fonction d'une colonne"),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_chiro_specie_list"), "Importer le fichier de données complémentaires Vigie-Chiro",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
-                                                 rep_br(2)
+
+                                                 h3("Trier"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/trier.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de trier (du plus petit au plus grand par exemple) les données d'une colonne."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+
+                                                 br(),br(),
+
+                                                 h3("Filtrer"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de ne conserver les données qu'appartenant à une catégories."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+
+
+
+                                                 br(),br(),
+
+                                                 h3("Sélectionner"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/selectionner.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de conserver uniquement les colonnes qui vous intéressent."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                               )
+                               ),
+
+
+                               bsCollapsePanel(title = "Extraire de l'information à partir de colonnes",
+                                               tagList(
+                                                   p("Ces outils permettent de récupérer des informations à partir de chaines de caractères d'une ou plusieurs colonnes (obtenir le mois à partir d'une date complète, obtenir le département à partir d'un code postal...)."),
+                                                   br(),
+
+                                                   h3("Extraire des caractères"),
+                                                   rep_br(2),
+                                                   fluidRow(img(src='gif_help/extrairecaracteres.gif', align = "center", width = "95%")),
+                                                   br(),
+                                                   p("Cet outil permet de récupérer des informations à partir de chaines de caractères d'une colonne."),
+                                                   img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                   style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+
+                                                   br(),br(),
+
+                                                   h3("Convertir des dates"),
+                                                   rep_br(2),
+                                                   fluidRow(img(src='gif_help/convertirdates.gif', align = "center", width = "95%")),
+                                                   br(),
+                                                   p("Cet outil permet de faire une opération sur des dates (obtenir le mois à partir d'une date complète)."),
+                                                   img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
+                                                                                                                   style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
 
                                                )
+
                                )
                     )
            )
     )
   )
+
+
 }
 
 
-mod_import_choice_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_import_manip_server <- function(id, analysis_history, step_nb_react, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 

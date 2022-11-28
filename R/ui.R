@@ -37,6 +37,11 @@ ui <- fluidPage(
              ),
              tabPanel("navigation",
                       mod_navigation_ui("navigation")
-                      )
+                      ),
+             tabPanel("manip",
+                      mod_manip_choice_ui("manip")
+             )
+
+
   )
 )
