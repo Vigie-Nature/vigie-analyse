@@ -10,7 +10,7 @@ mod_question_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h3("Etape 1 : Question de recherche"),
+                    h2("Etape 1 : Question de recherche"),
                     br(),
                     textAreaInput(ns("question"), "Écrire votre question de recherche", width = "90%", rows = 5, resize = "none"),
                     tags$div(class = "error",textOutput(ns("error"))),

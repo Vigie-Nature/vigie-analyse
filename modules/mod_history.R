@@ -21,7 +21,7 @@ mod_history_server <- function(id, analysis_history, step_nb_react){
                  ),
                  column(width = 6,
                         tags$div(class = "left-border",
-                                 h3("Etape 1 : Question de recherche"),
+                                 h2("Etape 1 : Question de recherche"),
                                  br(),
                                  tags$p(p(analysis_history[[history_names[index_current_step]]][["question_text"]]))
 

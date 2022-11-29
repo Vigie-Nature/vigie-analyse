@@ -9,8 +9,13 @@
   padding-left: 30px;
 }
 
-h3 {
+h2 {
   color: #62cc33;
+  font-family: 'Quicksand-Bold', Arial, sans;
+}
+
+h3 {
+  color: #2c4a4a;
   font-family: 'Quicksand-Bold', Arial, sans;
 }
 
@@ -48,3 +53,12 @@ h3 {
 
 }
 
+.panel {
+  background-color: #d4edda;
+}
+
+#collapse_import .panel-heading{
+   background-color: #62cc33;
+   border-color: #c3e6cb;
+   color: #ffffff;
+}

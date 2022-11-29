@@ -10,7 +10,7 @@ mod_import_choice_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h3("Etape 2 : Importation des données"),
+                    h2("Etape 2 : Importation des données"),
                     p("Vous êtes prêt à commencer votre analyse ! Il vous faut maintenant charger des données. Vous pouvez accéder à des jeux de données issus des programmes du Muséum national d'Histoire naturelle ou importer votre propore fichier de données (au format csv)."),
                     bsCollapse(id = "collapse_import",
                                multiple = TRUE,

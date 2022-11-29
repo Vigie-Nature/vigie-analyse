@@ -11,11 +11,14 @@ mod_navigation_ui <- function(id) {
            img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_nav"), "Importer d'autres données"),
            br(), br(),
            img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_nav"), "Manipuler les données"),
-           actionButton(ns("visu_nav"), "Visualiser les données"),
            br(), br(),
-           actionButton(ns("stat_navt"), "Effectuer un test statistique"),
+           img(src = "picto/Visualiser.png", height = "30px"), actionButton(ns("visu_nav"), "Visualiser les données"),
            br(), br(),
-           actionButton(ns("conclusion_nav"), "Conclure")
+           img(src = "picto/Tester.png", height = "30px"), actionButton(ns("stat_navt"), "Effectuer un test statistique"),
+           br(), br(),
+           img(src = "picto/Conclusion.png", height = "30px"), actionButton(ns("conclusion_nav"), "Conclure"),
+           br(), br(),
+           img(src = "picto/Exporter.png", height = "30px"), actionButton(ns("rapport_nav"), "Éditer un rapport")
     )
   )
 }
