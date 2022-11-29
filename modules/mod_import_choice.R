@@ -22,16 +22,14 @@ mod_import_choice_ui <- function(id) {
                                                  fluidRow(img(src='http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneevne_JrAsU7r.png', align = "center", width="95%")),
                                                  br(),
                                                  p("Les données issues de Vigie-Nature École sont organisées d'une manière particulière : chaque ligne représente une espèce. Pour une session d'observation, on aura donc plusieurs lignes (ayant toutes le même numéro d'observation)."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vne_birds"), "Importer un jeu de données issu de Vigie-Nature École",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vne_birds"), "Importer un jeu de données issu de Vigie-Nature École"),
 
                                                  h3("Importer des données regroupées par départements et par années"),
                                                  rep_br(2),
                                                  fluidRow(img(src = "http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneevn_NGWYIuF.png", align = "center", width="95%")),
                                                  br(),
                                                  p("Les données issues de ce jeu de données sont issues de Vigie-Nature et Vigie-Nature École. Les données ont été pré-traitées : mois par mois depuis 2012, pour chaque espèce d'oiseaux, vous trouverez le nombre d'individus comptés (l'abondance), le nombre de fois où l'espèce a été vue et le nombre totale d'observations réalisées ce mois dans le département."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vn_birds"), "Importer des données regroupées par départements et par années",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vn_birds"), "Importer des données regroupées par départements et par années"),
                                                  rep_br(2),
 
                                                  h3("Importer les données issues de l'INPN"),
@@ -39,8 +37,7 @@ mod_import_choice_ui <- function(id) {
                                                  fluidRow(img(src = "http://bricks.vigienature-ecole.fr/media/edito/2021/04/01/donneeinpn.png", align = "center", width="95%")),
                                                  br(),
                                                  p("Pour ces données, la France a été découpée en carrés de 10 km sur 10 km, ces carrés sont appelés des mailles. L'INPN a ensuite synthétisé dans chaque maille les nombre d'espèces qui ont été vues dans de très nombreuses observations. Ainsi, pour chaque maille, ce jeu de données indique le nombre d'espèces qui ont été déjà signalées toutes dates confondues."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_INPN_birds"), "Importer les données issues de l'INPN",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_INPN_birds"), "Importer les données issues de l'INPN"),
                                                  rep_br(2)
 
                                                )
@@ -51,8 +48,7 @@ mod_import_choice_ui <- function(id) {
                                                  h3("Importer votre propre jeu de données"),
                                                  br(),
                                                  p("Cet outil permet d'importer un fichier de données au format CSV. Ce format est accessible dans tous les tableurs, il suffit de choisir ce format lors de l'enregistrement du document. Il est nécessaire de choisir la virgule comme séparateur de colonne. Le contenu de chaque cellule doit être encadré par des guillemets simples (') ou doubles, si ce contenu contient le caractère séparateur de colonne (une virgule donc). Par exemple si un contenu contient une virgule, il faut donc encadrer ce contenu par des guillemets.  aaa, bbb devient donc 'aaa, bbb' ."),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_own_file"), "Importer votre propre jeu de données",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_own_file"), "Importer votre propre jeu de données"),
                                                  rep_br(2)
 
                                                )
@@ -63,8 +59,7 @@ mod_import_choice_ui <- function(id) {
                                                  h3("Importer des données pour analyser les résultats Vigie-Chiro"),
                                                  br(),
                                                  p("Ce fichier contient les correspondances entre les codes taxons et les espèces suivies dans le cadre de Vigie-Chiro. Pour faire la correspondance avec les deux fichiers, il faut utiliser l'outil de manipulation de données : joindre deux fichiers en fonction d'une colonne"),
-                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_chiro_specie_list"), "Importer le fichier de données complémentaires Vigie-Chiro",
-                                                                                                                style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_chiro_specie_list"), "Importer le fichier de données complémentaires Vigie-Chiro"),
                                                  rep_br(2)
 
                                                )

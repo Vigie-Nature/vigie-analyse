@@ -23,3 +23,22 @@ h3 {
   color: red;
   font-weight: bold;
 }
+
+.btn {
+  color: #62cc33;
+  background-color: #ffffff;
+  border-color: #62cc33;
+  font-size:120%;
+
+}
+
+.btn:hover {
+  color: #ffffff;
+  background-color: #62cc33;
+  border-color: #62cc33;
+  font-size:120%;
+
+}
+
+
+

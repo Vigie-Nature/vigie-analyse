@@ -15,7 +15,7 @@ mod_question_ui <- function(id) {
                     textAreaInput(ns("question"), "Écrire votre question de recherche", width = "90%", rows = 5, resize = "none"),
                     tags$div(class = "error",textOutput(ns("error"))),
                     br(),
-                    actionButton(ns("validate_question"), "Valider la question", style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                    actionButton(ns("validate_question"), "Valider la question"),
            )
     )
   )

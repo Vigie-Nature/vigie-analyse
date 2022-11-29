@@ -38,8 +38,8 @@ mod_history_server <- function(id, analysis_history, step_nb_react){
                       tags$div(class = "left-border",
                                h3(paste("Étape", step_nb_react, ":"), "Données importées"),
                                actionButton("tabBut", "View Table"),
-                               bsModal("modal_dataset", "Data Table", "tabBut", size = "large",
-                                       dataTableOutput("dataset")),
+                               bsModal("modal_view_dataset", "Data Table", "tabBut", size = "large",
+                                       dataTableOutput("modal_dataset")),
 
 
 
@@ -67,17 +67,12 @@ mod_history_server <- function(id, analysis_history, step_nb_react){
                       )
                )
                )
+
       )
 
-      output$modal_dataset <- renderDataTable({
 
-        analysis_history[[history_names[index_current_step]]][["dataset"]]
 
-      }, options = list(pageLength=10))
     }
-
-
-
 
   })
 }

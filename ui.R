@@ -41,7 +41,5 @@ ui <- fluidPage(
              tabPanel("manip",
                       mod_manip_choice_ui("manip")
              )
-
-
   )
 )

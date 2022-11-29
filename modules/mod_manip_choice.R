@@ -23,8 +23,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/resumer.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de regrouper des lignes par catégorie (par type d'environnement par exemple) en faisant un calcul (une moyenne par exemple) sur les données d'une autre colonne."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_group_by"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_group_by"), "Utiliser cet outil"),
 
 
                                                )
@@ -40,8 +39,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/operationcolonnes.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de réaliser une opération sur toutes les valeurs d'une ou plusieurs colonnes."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
                                                  br(),br(),
 
@@ -50,8 +48,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de réaliser une opération sur chaque ligne d'un jeu de données."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
                                                )
                                ),
@@ -65,8 +62,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/trier.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de trier (du plus petit au plus grand par exemple) les données d'une colonne."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
                                                  br(),br(),
 
@@ -75,8 +71,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de ne conserver les données qu'appartenant à une catégories."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
 
 
@@ -87,39 +82,37 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/selectionner.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de conserver uniquement les colonnes qui vous intéressent."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                 style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
                                                )
                                ),
 
 
                                bsCollapsePanel(title = "Extraire de l'information à partir de colonnes",
                                                tagList(
-                                                   p("Ces outils permettent de récupérer des informations à partir de chaines de caractères d'une ou plusieurs colonnes (obtenir le mois à partir d'une date complète, obtenir le département à partir d'un code postal...)."),
-                                                   br(),
+                                                 p("Ces outils permettent de récupérer des informations à partir de chaines de caractères d'une ou plusieurs colonnes (obtenir le mois à partir d'une date complète, obtenir le département à partir d'un code postal...)."),
+                                                 br(),
 
-                                                   h3("Extraire des caractères"),
-                                                   rep_br(2),
-                                                   fluidRow(img(src='gif_help/extrairecaracteres.gif', align = "center", width = "95%")),
-                                                   br(),
-                                                   p("Cet outil permet de récupérer des informations à partir de chaines de caractères d'une colonne."),
-                                                   img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                   style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 h3("Extraire des caractères"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/extrairecaracteres.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de récupérer des informations à partir de chaines de caractères d'une colonne."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
-                                                   br(),br(),
+                                                 br(),br(),
 
-                                                   h3("Convertir des dates"),
-                                                   rep_br(2),
-                                                   fluidRow(img(src='gif_help/convertirdates.gif', align = "center", width = "95%")),
-                                                   br(),
-                                                   p("Cet outil permet de faire une opération sur des dates (obtenir le mois à partir d'une date complète)."),
-                                                   img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil",
-                                                                                                                   style = "color: #FFFFFF; background-color: #037971; border-color: #037971; font-size:120%"),
+                                                 h3("Convertir des dates"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='gif_help/convertirdates.gif', align = "center", width = "95%")),
+                                                 br(),
+                                                 p("Cet outil permet de faire une opération sur des dates (obtenir le mois à partir d'une date complète)."),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
 
                                                )
 
                                )
-                    )
+                    ),
+                    actionButton(ns("nav_back"), "Retour au menu navigation")
            )
     )
   )
@@ -168,6 +161,11 @@ mod_import_manip_server <- function(id, analysis_history, step_nb_react, parent_
       cat("increment step_nb_react")
       step_nb_react(step_nb_react()+1)
 
+    })
+
+    observeEvent(input$nav_back, {
+      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+                        selected = "navigation")
     })
 
   })
