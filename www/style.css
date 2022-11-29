@@ -40,5 +40,11 @@ h3 {
 
 }
 
+.btn:focus {
+  color: #62cc33;
+  background-color: #ffffff;
+  border-color: #62cc33;
+  font-size:120%;
 
+}
 
