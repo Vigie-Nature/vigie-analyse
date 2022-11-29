@@ -37,7 +37,7 @@ mod_history_server <- function(id, analysis_history, step_nb_react){
                column(width = 6,
                       tags$div(class = "left-border",
                                h3(paste("Étape", step_nb_react, ":"), "Données importées"),
-                               actionButton("tabBut", "View Table"),
+                               #actionButton("tabBut", "View Table"),
                                bsModal("modal_view_dataset", "Data Table", "tabBut", size = "large",
                                        dataTableOutput("modal_dataset")),
 
