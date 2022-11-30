@@ -112,7 +112,7 @@ mod_manip_choice_ui <- function(id) {
 
                                )
                     ),
-                    actionButton(ns("nav_back"), "Retour au menu navigation")
+                      actionButton(ns("nav_back"), "Retour au menu navigation")
            )
     )
   )
@@ -121,52 +121,16 @@ mod_manip_choice_ui <- function(id) {
 }
 
 
-mod_import_manip_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_manip_choice_server <- function(id, analysis_history, step_nb_react, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
-    # ReactiveValue to return
-    to_return <- reactiveValues(type = NULL,
-                                dataset = NULL,
-                                protocole = NULL,
-                                parameters_text = NULL)
-
-
-    # Importation directe des jeux de données
-    observeEvent(input$import_vne_birds, {
-      cat("import birds VNE")
-
-      # record values
-      to_return$type <- "dataset"
-      to_return$type_precise <- "Importation de données"
-      to_return$tool_name <- "importer des données Vigie-Nature École"
-      to_return$parameters <- list() # to do : add parameters for report
-      to_return$protocole <- "Oiseaux des jardins"
-      to_return$parameters_text <- paste("Importation du jeu de données issu du protocole :  Oiseaux des jardins")
-
-      to_return$dataset <- data.table::fread(paste0("../../../datasets/bricks/oiseaux.csv"))
-
-
-      # store into reactive value
-      analysis_history[[paste0("step_", step_nb_react())]] <- to_return
-      mod_history_server("import", analysis_history, step_nb_react())
-
-
-      # go to next step UI
-      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
-                        selected = "navigation")
-
-      updateCollapse(parent_session, id = "collapse_import", close = c("Importer des données sur les oiseaux"))
-
-      cat("increment step_nb_react")
-      step_nb_react(step_nb_react()+1)
-
-    })
 
     observeEvent(input$nav_back, {
-      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+      updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "navigation")
     })
+
 
   })
 }

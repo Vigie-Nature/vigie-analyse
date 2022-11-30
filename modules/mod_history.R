@@ -37,20 +37,12 @@ mod_history_server <- function(id, analysis_history, step_nb_react){
                column(width = 6,
                       tags$div(class = "left-border",
                                h3(paste("Étape", step_nb_react, ":"), "Données importées"),
-                               #actionButton("tabBut", "View Table"),
-                               bsModal("modal_view_dataset", "Data Table", "tabBut", size = "large",
-                                       dataTableOutput("modal_dataset")),
-
-
-
-
-
-
                                tabsetPanel(
                                  tabPanel("Données",
                                           helpText("Voici un extrait des premières lignes du jeu de données :"),
                                           tags$div(style = 'overflow-x: scroll',
                                                    HTML(
+                                                     # DT::datatable(analysis_history[[history_names[index_current_step]]][["dataset"]])
                                                      kbl(head(analysis_history[[history_names[index_current_step]]][["dataset"]])) %>%
                                                        kable_paper() %>%
                                                        kable_styling(bootstrap_options = c("striped", "hover"))

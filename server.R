@@ -21,6 +21,6 @@ server <- function(input, output, session) {
   # module to write question
   mod_question_server("question", analysis_history, step_nb_react, parent_session = session)
   mod_import_choice_server("import_choice", analysis_history, step_nb_react, parent_session = session)
-  mod_import_manip_server("manip_choice", analysis_history, step_nb_react, parent_session = session)
+  mod_manip_choice_server("manip_choice", analysis_history, step_nb_react, parent_session = session)
   mod_navigation_server("navigation", parent_session = session)
 }
