@@ -62,3 +62,12 @@ h3 {
    border-color: #c3e6cb;
    color: #ffffff;
 }
+
+table {
+    background-color: #ffffff;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #d4edda;
+}
+
