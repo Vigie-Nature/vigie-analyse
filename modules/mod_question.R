@@ -47,7 +47,7 @@ mod_question_server <- function(id, analysis_history, step_nb_react, parent_sess
         to_return$history_title <- "question de recherche"
 
         # store into reactive value
-        analysis_history[["step_1"]] <- to_return
+        analysis_history[["Etape_1 : Question de recherche"]] <- to_return
         mod_history_server("question", analysis_history, step_nb_react())
 
         # go to next step UI

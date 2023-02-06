@@ -98,7 +98,7 @@ mod_import_choice_server <- function(id, analysis_history, step_nb_react, parent
 
 
       # store into reactive value
-      analysis_history[[paste0("step_", step_nb_react())]] <- to_return
+      analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
       mod_history_server("import", analysis_history, step_nb_react())
 
 

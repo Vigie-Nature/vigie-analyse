@@ -131,6 +131,12 @@ mod_manip_choice_server <- function(id, analysis_history, step_nb_react, parent_
                         selected = "navigation")
     })
 
+    observeEvent(input$manip_group_by, {
+      updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                        selected = "tool_manip_group_by")
+    })
+
+
 
   })
 }

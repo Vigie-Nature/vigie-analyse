@@ -8,6 +8,7 @@ library(shinyjs)
 library(shinyBS)
 library(shinyWidgets)
 library(shinydashboardPlus)
+library(blastula)
 
 source("function_utils_ui.R")
 # source("modules/mod_question.R")
@@ -37,10 +38,26 @@ ui <- fluidPage(
              ),
              tabPanel("navigation",
                       mod_navigation_ui("navigation")
-                      ),
+             ),
              tabPanel("manip",
                       mod_manip_choice_ui("manip_choice")
+             ),
+             tabPanel("visualisation",
+                      mod_visu_choice_ui("visu_choice")
+             ),
+              tabPanel("stats",
+                       mod_stat_choice_ui("stats_choice")
+              ),
+             tabPanel("conclusion",
+                      mod_conclusion_ui("conclusion")
+             ),
+             tabPanel("tool_manip_group_by",
+                      mod_manip_group_by_ui("manip_group_by")
+             ),
+             tabPanel("tool_visu_plot",
+                      mod_visu_plot_ui("visu_plot")
              )
+
   ),
   rep_br(2)
 )

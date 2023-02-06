@@ -37,6 +37,25 @@ mod_navigation_server <- function(id, parent_session){
                           selected = "manip")
       })
 
+      observeEvent(input$visu_nav, {
+        updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                          selected = "visualisation")
+      })
+
+      observeEvent(input$stat_navt, {
+        updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                          selected = "stats")
+      })
+
+      observeEvent(input$conclusion_nav, {
+        updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                          selected = "conclusion")
+      })
+
+      observeEvent(input$rapport_nav, {
+        updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                          selected = "rapport")
+      })
 
   })
 }

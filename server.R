@@ -1,4 +1,6 @@
 library(kableExtra)
+library(dplyr)
+library(ggplot2)
 
 
 server <- function(input, output, session) {
@@ -22,5 +24,10 @@ server <- function(input, output, session) {
   mod_question_server("question", analysis_history, step_nb_react, parent_session = session)
   mod_import_choice_server("import_choice", analysis_history, step_nb_react, parent_session = session)
   mod_manip_choice_server("manip_choice", analysis_history, step_nb_react, parent_session = session)
+  mod_manip_group_by_server("manip_group_by", analysis_history, step_nb_react, parent_session = session)
   mod_navigation_server("navigation", parent_session = session)
+  mod_visu_choice_server("visu_choice", analysis_history, step_nb_react, parent_session = session)
+  mod_visu_plot_server("visu_plot", analysis_history, step_nb_react, parent_session = session)
+  mod_stat_choice_server("visu_choice", analysis_history, step_nb_react, parent_session = session)
+  mod_conclusion_server("conclusion", analysis_history, step_nb_react, parent_session = session)
 }
