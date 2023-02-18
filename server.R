@@ -2,8 +2,7 @@ library(kableExtra)
 library(dplyr)
 library(ggplot2)
 
-data_folder = "../../datasets/bricks/"
-
+source(".config")
 
 server <- function(input, output, session) {
   # increase max dowload size for manual import

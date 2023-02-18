@@ -9,7 +9,6 @@ You can run the development version:
 1. clone this repo
 
 2. Download the dataset here :
-
 https://depot.vigienature-ecole.fr/datasets/bricks/oiseaux.csv
 
 3. edit **server.R** 
