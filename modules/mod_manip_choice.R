@@ -10,7 +10,7 @@ mod_manip_choice_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 3 : Manipulation des données"),
+                    h2("Manipulation des données"),
                     p("Vous avez chargé des données, bravo. Il vous faut maintenant les manipuler, faire des calculs pour répondre à votre question de recherche."),
                     p("Vous disposez de quatre familles d'outils pour manipuler vos données. N'hésitez pas à consulter l'aide pour apprendre à utiliser les outils."),
                     bsCollapse(id = "collapse_manip",

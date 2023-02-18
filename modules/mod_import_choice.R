@@ -10,7 +10,7 @@ mod_import_choice_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 2 : Importation des données"),
+                    h2("Importation des données"),
                     p("Vous êtes prêt à commencer votre analyse ! Il vous faut maintenant charger des données. Vous pouvez accéder à des jeux de données issus des programmes du Muséum national d'Histoire naturelle ou importer votre propore fichier de données (au format csv)."),
                     bsCollapse(id = "collapse_import",
                                multiple = TRUE,
@@ -95,6 +95,36 @@ mod_import_choice_server <- function(id, analysis_history, step_nb_react, parent
       to_return$parameters_text <- paste("Importation du jeu de données issu du protocole :  Oiseaux des jardins")
 
       to_return$dataset <- data.table::fread(paste0(data_folder, "oiseaux.csv"))
+
+
+      # store into reactive value
+      analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
+      mod_history_server("import", analysis_history, step_nb_react())
+
+
+      # go to next step UI
+      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+                        selected = "navigation")
+
+      updateCollapse(parent_session, id = "collapse_import", close = c("Importer des données sur les oiseaux"))
+
+      cat("increment step_nb_react")
+      step_nb_react(step_nb_react()+1)
+
+    })
+
+    observeEvent(input$import_vn_birds, {
+      cat("import birds VNE")
+
+      # record values
+      to_return$type <- "dataset"
+      to_return$type_precise <- "Importation de données"
+      to_return$tool_name <- "importer des données de Vigie-Nature"
+      to_return$parameters <- list() # to do : add parameters for report
+      to_return$protocole <- "Oiseaux des jardins"
+      to_return$parameters_text <- paste("Importation du jeu de données issu du protocole :  Oiseaux des jardins")
+
+      to_return$dataset <- data.table::fread(paste0(data_folder, "oiseaux_odj.csv"))
 
 
       # store into reactive value

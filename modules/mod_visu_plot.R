@@ -21,7 +21,7 @@ mod_visu_plot_ui <- function(id){
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 2 : Importation des données"),
+                    h2("Visualisation des données"),
                     actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Faire un graphique à partir du jeu de données", choices = NULL),
                     selectInput(ns("select_column_x"), label = "Axe des ordonnées (X)", choices = NULL),

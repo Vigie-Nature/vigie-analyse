@@ -16,7 +16,7 @@ mod_manip_group_by_ui <- function(id){
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 2 : Importation des données"),
+                    h2("Manipulation des données"),
                     actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Regrouper toutes les lignes du jeu de données", choices = NULL),
                     selectInput(ns("select_columns_group"), label = "selon les catégories contenues dans la ou les colonnes suivantes", choices = NULL, multiple = TRUE),

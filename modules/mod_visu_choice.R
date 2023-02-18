@@ -10,7 +10,7 @@ mod_visu_choice_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 4 : Visualisation des données"),
+                    h2("Visualisation des données"),
                     p("Vous disposez d'outils pour représenter vos données. Cette étape vous permet de représenter clairement vos résultats et mettre en évidence les différences ou les relations entre des variables par exemple."),
                     bsCollapse(id = "collapse_visu",
                                multiple = TRUE,

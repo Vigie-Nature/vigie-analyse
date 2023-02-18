@@ -10,7 +10,7 @@ mod_stat_choice_ui <- function(id) {
     ),
     column(width = 6,
            tags$div(class = "left-border",
-                    h2("Etape 5 : Test statistique"),
+                    h2("Test statistique"),
                     h3("Choisir un test statistique"),
                     p("Pour vérifier qu'un résultat n'est pas dû au hasard, les chercheurs utilisent des tests statistiques. Quand le test statistique valide le résultat, le chercheur peut alors considérer que son hypothèse initiale est fondée."),
                     p("Nous proposons ici d'avoir une démarche similiaire, sachant qu'il ne s'agira que d'une approximation (il existe en réalité des dizaines de tests statistiques, tous adaptés à des situations bien particulières)."),
