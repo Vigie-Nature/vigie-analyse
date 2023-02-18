@@ -97,9 +97,9 @@ mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, paren
             column_type = class(unlist(rv$active_dataset[input$select_column_operation]))
 
             if(input$select_column_operation %in% input$select_columns_group) {
-              rv$error_text <- "Attention la colonne sur laquelle vous faite le calcul ne peut pas être présente deux fois"
+              rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne peut pas être présente deux fois"
             } else if(column_type != "numeric" & column_type != "integer") {
-              rv$error_text <- "Attention la colonne sur laquelle vous faite le calcul ne doit contenir que des nombres"
+              rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne doit contenir que des nombres"
 
             } else {
               cat("  calculate result for preview\n")

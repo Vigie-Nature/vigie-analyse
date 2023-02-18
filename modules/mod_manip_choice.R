@@ -48,7 +48,7 @@ mod_manip_choice_ui <- function(id) {
                                                  fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de réaliser une opération sur chaque ligne d'un jeu de données."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_row_operation"), "Utiliser cet outil"),
 
                                                )
                                ),
@@ -68,10 +68,10 @@ mod_manip_choice_ui <- function(id) {
 
                                                  h3("Filtrer"),
                                                  rep_br(2),
-                                                 fluidRow(img(src='gif_help/operationlignes.gif', align = "center", width = "95%")),
+                                                 fluidRow(img(src='gif_help/filtrer.gif', align = "center", width = "95%")),
                                                  br(),
                                                  p("Cet outil permet de ne conserver les données qu'appartenant à une catégories."),
-                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_operation_column"), "Utiliser cet outil"),
+                                                 img(src = "picto/Manipuler.png", height = "30px"), actionButton(ns("manip_filter"), "Utiliser cet outil"),
 
 
 
@@ -135,6 +135,18 @@ mod_manip_choice_server <- function(id, analysis_history, step_nb_react, parent_
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "tool_manip_group_by")
     })
+
+    observeEvent(input$manip_row_operation, {
+      updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                        selected = "tool_manip_row_operation")
+    })
+
+    observeEvent(input$manip_filter, {
+      updateTabsetPanel(parent_session, "vigie_nature_analyse",
+                        selected = "tool_manip_filter")
+    })
+
+
 
 
 

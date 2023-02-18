@@ -51,8 +51,14 @@ ui <- fluidPage(
              tabPanel("conclusion",
                       mod_conclusion_ui("conclusion")
              ),
+             tabPanel("tool_manip_row_operation",
+                      mod_manip_row_operation_ui("manip_row_operation")
+             ),
              tabPanel("tool_manip_group_by",
                       mod_manip_group_by_ui("manip_group_by")
+             ),
+             tabPanel("tool_manip_filter",
+                      mod_manip_filter_ui("manip_filter")
              ),
              tabPanel("tool_visu_plot",
                       mod_visu_plot_ui("visu_plot")
