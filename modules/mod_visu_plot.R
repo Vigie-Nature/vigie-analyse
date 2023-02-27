@@ -17,7 +17,7 @@ mod_visu_plot_ui <- function(id){
   ns <- NS(id)
   tagList(
     column(width = 2, offset = 2,
-           tags$img(src = "picto/Manipuler.png")
+           tags$img(src = "picto/Visualiser.png")
     ),
     column(width = 6,
            tags$div(class = "left-border",
