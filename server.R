@@ -16,6 +16,7 @@ server <- function(input, output, session) {
   # - figures + parameters + comments
   # - conclusions
   analysis_history <- reactiveValues()
+  update_manip <- reactiveVal(1)
 
   # used as parameter for a lot of functions
   # define the step number
@@ -24,9 +25,9 @@ server <- function(input, output, session) {
   # module to write question
   mod_question_server("question", analysis_history, step_nb_react, parent_session = session)
   mod_import_choice_server("import_choice", analysis_history, step_nb_react, parent_session = session, data_folder = data_folder)
-  mod_manip_choice_server("manip_choice", analysis_history, step_nb_react, parent_session = session)
+  mod_manip_choice_server("manip_choice", analysis_history, step_nb_react, update_manip, parent_session = session)
   mod_manip_row_operation_server("manip_row_operation", analysis_history, step_nb_react, parent_session = session)
-  mod_manip_group_by_server("manip_group_by", analysis_history, step_nb_react, parent_session = session)
+  mod_manip_group_by_server("manip_group_by", analysis_history, step_nb_react, update_manip, parent_session = session)
   mod_manip_filter_server("manip_filter", analysis_history, step_nb_react, parent_session = session)
   mod_navigation_server("navigation", parent_session = session)
   mod_visu_choice_server("visu_choice", analysis_history, step_nb_react, parent_session = session)

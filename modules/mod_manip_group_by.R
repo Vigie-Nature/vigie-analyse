@@ -17,7 +17,6 @@ mod_manip_group_by_ui <- function(id){
     column(width = 6,
            tags$div(class = "left-border",
                     h2("Manipulation des données"),
-                    actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Regrouper toutes les lignes du jeu de données", choices = NULL),
                     selectInput(ns("select_columns_group"), label = "selon les catégories contenues dans la ou les colonnes suivantes", choices = NULL, multiple = TRUE),
                     # textOutput(ns("help_text_column")), # preciser par exemple attention si une valeur quanti
@@ -39,7 +38,7 @@ mod_manip_group_by_ui <- function(id){
 #' manip_group_by Server Functions
 #'
 #' @noRd
-mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, update_manip, parent_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     # add reactive values to store data
@@ -53,7 +52,8 @@ mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, paren
 
     cat("data wrangling : group_by\n")
 
-    observeEvent(input$launch_tool, {
+
+    observeEvent(update_manip(), {
 
       # populate select with datasets names
 

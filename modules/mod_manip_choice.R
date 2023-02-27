@@ -121,7 +121,7 @@ mod_manip_choice_ui <- function(id) {
 }
 
 
-mod_manip_choice_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_manip_choice_server <- function(id, analysis_history, step_nb_react, update_manip, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
@@ -134,16 +134,19 @@ mod_manip_choice_server <- function(id, analysis_history, step_nb_react, parent_
     observeEvent(input$manip_group_by, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "tool_manip_group_by")
+      update_manip(update_manip()+1)
     })
 
     observeEvent(input$manip_row_operation, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "tool_manip_row_operation")
+      update_manip(update_manip()+1)
     })
 
     observeEvent(input$manip_filter, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "tool_manip_filter")
+      update_manip(update_manip()+1)
     })
 
 
