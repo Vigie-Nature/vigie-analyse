@@ -52,7 +52,7 @@ mod_visu_choice_ui <- function(id) {
 }
 
 
-mod_visu_choice_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_visu_choice_server <- function(id, analysis_history, step_nb_react, update_visu, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
@@ -65,6 +65,7 @@ mod_visu_choice_server <- function(id, analysis_history, step_nb_react, parent_s
     observeEvent(input$representer_all, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
                         selected = "tool_visu_plot")
+      update_visu(update_visu()+1)
     })
 
 

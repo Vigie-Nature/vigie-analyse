@@ -11,7 +11,7 @@ You can run the development version:
 2. Download the dataset here :
 https://depot.vigienature-ecole.fr/datasets/bricks/oiseaux.csv
 
-3. Edit **server.R** 
+3. Add a **.config** file containing this line 
 
 ```
 data_folder = "path to folder where the dataset is"

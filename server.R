@@ -17,6 +17,7 @@ server <- function(input, output, session) {
   # - conclusions
   analysis_history <- reactiveValues()
   update_manip <- reactiveVal(1)
+  update_visu <- reactiveVal(1)
 
   # used as parameter for a lot of functions
   # define the step number
@@ -30,8 +31,8 @@ server <- function(input, output, session) {
   mod_manip_group_by_server("manip_group_by", analysis_history, step_nb_react, update_manip, parent_session = session)
   mod_manip_filter_server("manip_filter", analysis_history, step_nb_react, update_manip, parent_session = session)
   mod_navigation_server("navigation", parent_session = session)
-  mod_visu_choice_server("visu_choice", analysis_history, step_nb_react, parent_session = session)
-  mod_visu_plot_server("visu_plot", analysis_history, step_nb_react, parent_session = session)
+  mod_visu_choice_server("visu_choice", analysis_history, step_nb_react, update_visu, parent_session = session)
+  mod_visu_plot_server("visu_plot", analysis_history, step_nb_react, update_visu, parent_session = session)
   mod_stat_choice_server("visu_choice", analysis_history, step_nb_react, parent_session = session)
   mod_conclusion_server("conclusion", analysis_history, step_nb_react, parent_session = session)
 }

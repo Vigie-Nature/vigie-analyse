@@ -22,7 +22,6 @@ mod_visu_plot_ui <- function(id){
     column(width = 6,
            tags$div(class = "left-border",
                     h2("Visualisation des données"),
-                    actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Faire un graphique à partir du jeu de données", choices = NULL),
                     selectInput(ns("select_column_x"), label = "Axe des ordonnées (X)", choices = NULL),
                     selectInput(ns("select_column_y"), label = "Axe des ordonnées (Y)", choices = NULL),
@@ -46,7 +45,7 @@ mod_visu_plot_ui <- function(id){
 #' visu_plot Server Functions
 #'
 #' @noRd
-mod_visu_plot_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_visu, parent_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     # add reactive values to store data
@@ -60,7 +59,8 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, parent_ses
     cat("data visualisation : graph\n")
 
 
-    observeEvent(input$launch_tool,{
+    observeEvent(update_visu(),{
+      browser()
       # populate select with datasets names
       # filter datasets only and update the select input list
       filter_and_update_datasets(analysis_history, "select_dataset", parent_session, ns)
