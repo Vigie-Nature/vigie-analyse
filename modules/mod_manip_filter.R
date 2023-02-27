@@ -17,7 +17,6 @@ mod_manip_filter_ui <- function(id){
     column(width = 6,
            tags$div(class = "left-border",
                     h2("Manipulation des données"),
-                    actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Garder les lignes du jeu de données", choices = NULL),
                     selectInput(ns("select_column"), label = "dont les valeurs de la colonne", choices = NULL),
                     textOutput(ns("help_text_column")),
@@ -38,7 +37,7 @@ mod_manip_filter_ui <- function(id){
 #' manip_group_by Server Functions
 #'
 #' @noRd
-mod_manip_filter_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_manip_filter_server <- function(id, analysis_history, step_nb_react, update_manip, parent_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     # add reactive values to store data
@@ -52,7 +51,7 @@ mod_manip_filter_server <- function(id, analysis_history, step_nb_react, parent_
 
     cat("data wrangling : Filter\n")
 
-    observeEvent(input$launch_tool,{
+    observeEvent(update_manip(),{
       # populate select with datasets names
 
       # filter datasets only and update the select input list

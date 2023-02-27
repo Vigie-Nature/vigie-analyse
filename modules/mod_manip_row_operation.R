@@ -17,7 +17,6 @@ mod_manip_row_operation_ui <- function(id){
     column(width = 6,
            tags$div(class = "left-border",
                     h2("Manipulation des données"),
-                    actionButton(ns("launch_tool"), label = "lancer l'outil (remplacer par réactive)"),
                     selectInput(ns("select_dataset"), label = "Faire des opération sur les colonnes du jeu de données", choices = NULL),
                     selectInput(ns("select_operation"), label = "en faisant l'opération suivante", choices = c("addition", "soustraction", "multiplication", "division", "pourcentage"), multiple = FALSE),
                     selectInput(ns("select_column_1"), label = "sur la colonne", choices = NULL, multiple = FALSE),
@@ -40,7 +39,7 @@ mod_manip_row_operation_ui <- function(id){
 #' manip_group_by Server Functions
 #'
 #' @noRd
-mod_manip_row_operation_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_manip_row_operation_server <- function(id, analysis_history, step_nb_react, update_manip, parent_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     # add reactive values to store data
@@ -54,7 +53,7 @@ mod_manip_row_operation_server <- function(id, analysis_history, step_nb_react, 
 
     cat("data wrangling : row_operation\n")
 
-    observeEvent(input$launch_tool, {
+    observeEvent(update_manip(), {
 
       # populate select with datasets names
 
