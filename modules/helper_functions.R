@@ -16,7 +16,7 @@ filter_and_update_datasets <- function(analysis_history, input_to_update, sessio
     for (i in seq_along(datasets_names)){
       datasets_names_keep[i] <- ifelse(analysis_history[[datasets_names[i]]][["type"]] != "dataset", FALSE, TRUE)
     }
-    datasets_names <- datasets_names[datasets_names_keep]
+    datasets_names <- sort(datasets_names[datasets_names_keep])
     for (i in seq_along(input_to_update)){
       updateSelectInput(session = session,
                         inputId = ns(input_to_update[i]),
