@@ -60,7 +60,7 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
 
 
     observeEvent(update_visu(),{
-      browser()
+
       # populate select with datasets names
       # filter datasets only and update the select input list
       filter_and_update_datasets(analysis_history, "select_dataset", parent_session, ns)
@@ -90,7 +90,7 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
         if(!(is.null(input$select_column_x) & is.null(input$select_column_y))) {
           if(input$select_column_x != "" & input$select_column_y != "") {
 
-            rv$tool_result <- ggplot(rv$active_dataset, aes_string(input$select_column_x,input$select_column_y))
+            rv$tool_result <- ggplot(rv$active_dataset, aes(!!sym(input$select_column_x),!!sym(input$select_column_y)))
 
             if(input$select_type == "points") {
               print("points")
