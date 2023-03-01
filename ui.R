@@ -46,7 +46,7 @@ ui <- fluidPage(
                       mod_visu_choice_ui("visu_choice")
              ),
               tabPanel("stats",
-                       mod_stat_choice_ui("stats_choice")
+                       mod_stat_choice_ui("stat_choice")
               ),
              tabPanel("conclusion",
                       mod_conclusion_ui("conclusion")
@@ -62,7 +62,11 @@ ui <- fluidPage(
              ),
              tabPanel("tool_visu_plot",
                       mod_visu_plot_ui("visu_plot")
+             ),
+             tabPanel("tool_stat_anova",
+                      mod_stat_anova_ui("stat_anova")
              )
+
 
   ),
   rep_br(2)
