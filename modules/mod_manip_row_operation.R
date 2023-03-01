@@ -30,7 +30,8 @@ mod_manip_row_operation_ui <- function(id){
 
                     tags$div(style = 'overflow-x: scroll',
                              tableOutput(ns("dataset_preview"))
-                    )
+                    ),
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )

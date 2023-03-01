@@ -36,7 +36,8 @@ mod_visu_plot_ui <- function(id){
                     helpText("Prévisualisation du graphique"),
                     tags$div(style = 'overflow-x: scroll',
                              plotOutput(ns("graph_preview"))
-                    )
+                    ),
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )

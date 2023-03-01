@@ -16,11 +16,11 @@ mod_stat_choice_ui <- function(id) {
                     p("Nous proposons ici d'avoir une démarche similiaire, sachant qu'il ne s'agira que d'une approximation (il existe en réalité des dizaines de tests statistiques, tous adaptés à des situations bien particulières)."),
                     p("Le choix du test dépend du type de données utilisées pour la réalisation du graphique."),
                     p("Si les données en abscisses (X) sont des catégories (par exemple : un type de milieu, un numéro de département...), on fera alors une comparaison de moyennes"),
-                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("map"), "Utiliser cet outil"),
+                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("anova"), "Utiliser cet outil"),
                     p("Si les données en abscisses (X) sont des nombres (par exemple : un nombre d'espèces, une durée...), on fera une régression linéaire"),
-                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("map"), "Utiliser cet outil"),
+                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("reg_lin"), "Utiliser cet outil"),
                     rep_br(2),
-                    actionButton(ns("nav_back"), "Retour au menu navigation")
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )
@@ -29,15 +29,16 @@ mod_stat_choice_ui <- function(id) {
 }
 
 
-mod_stat_choice_server <- function(id, analysis_history, step_nb_react, parent_session){
+mod_stat_choice_server <- function(id, analysis_history, step_nb_react, update_stat, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
-
-    observeEvent(input$nav_back, {
+    observeEvent(input$anova, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",
-                        selected = "navigation")
+                        selected = "tool_stat_anova")
+      update_stat(update_stat()+1)
     })
+
 
 
   })

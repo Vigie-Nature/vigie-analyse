@@ -29,7 +29,8 @@ mod_manip_group_by_ui <- function(id){
 
                     tags$div(style = 'overflow-x: scroll',
                              tableOutput(ns("dataset_preview"))
-                    )
+                    ),
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )
@@ -167,7 +168,10 @@ mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, updat
           updateSelectInput(session = parent_session, inputId = ns("select_column_operation"), selected = "")
         }
       })
+
     })
+
+
   })
 }
 

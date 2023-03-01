@@ -112,7 +112,7 @@ mod_manip_choice_ui <- function(id) {
 
                                )
                     ),
-                      actionButton(ns("nav_back"), "Retour au menu navigation")
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )
@@ -124,12 +124,6 @@ mod_manip_choice_ui <- function(id) {
 mod_manip_choice_server <- function(id, analysis_history, step_nb_react, update_manip, parent_session){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-
-
-    observeEvent(input$nav_back, {
-      updateTabsetPanel(parent_session, "vigie_nature_analyse",
-                        selected = "navigation")
-    })
 
     observeEvent(input$manip_group_by, {
       updateTabsetPanel(parent_session, "vigie_nature_analyse",

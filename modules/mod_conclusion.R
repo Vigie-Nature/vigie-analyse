@@ -16,6 +16,7 @@ mod_conclusion_ui <- function(id) {
                     tags$div(class = "error",textOutput(ns("error"))),
                     br(),
                     actionButton(ns("validate_conclusion"), "Valider la conclusion"),
+                    mod_button_return_nav_ui("return_nav")
            )
     )
   )
