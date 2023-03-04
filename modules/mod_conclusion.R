@@ -15,8 +15,7 @@ mod_conclusion_ui <- function(id) {
                     textAreaInput(ns("conclusion"), "Écrire votre conclusion", width = "90%", rows = 5, resize = "none"),
                     tags$div(class = "error",textOutput(ns("error"))),
                     br(),
-                    actionButton(ns("validate_conclusion"), "Valider la conclusion"),
-                    mod_button_return_nav_ui("return_nav")
+                    actionButton(ns("validate_conclusion"), "Valider la conclusion")
            )
     )
   )

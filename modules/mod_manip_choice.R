@@ -111,8 +111,7 @@ mod_manip_choice_ui <- function(id) {
                                                )
 
                                )
-                    ),
-                    mod_button_return_nav_ui("return_nav")
+                    )
            )
     )
   )

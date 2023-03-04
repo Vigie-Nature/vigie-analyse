@@ -42,8 +42,7 @@ mod_visu_choice_ui <- function(id) {
                                                  img(src = "picto/Visualiser.png", height = "30px"), actionButton(ns("map"), "Utiliser cet outil"),
                                                )
                                )
-                    ),
-                    mod_button_return_nav_ui("return_nav")
+                    )
            )
     )
   )

@@ -18,9 +18,7 @@ mod_stat_choice_ui <- function(id) {
                     p("Si les données en abscisses (X) sont des catégories (par exemple : un type de milieu, un numéro de département...), on fera alors une comparaison de moyennes"),
                     img(src = "picto/Tester.png", height = "30px"), actionButton(ns("anova"), "Utiliser cet outil"),
                     p("Si les données en abscisses (X) sont des nombres (par exemple : un nombre d'espèces, une durée...), on fera une régression linéaire"),
-                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("reg_lin"), "Utiliser cet outil"),
-                    rep_br(2),
-                    mod_button_return_nav_ui("return_nav")
+                    img(src = "picto/Tester.png", height = "30px"), actionButton(ns("reg_lin"), "Utiliser cet outil")
            )
     )
   )
