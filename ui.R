@@ -45,9 +45,9 @@ ui <- fluidPage(
              tabPanel("visualisation",
                       mod_visu_choice_ui("visu_choice")
              ),
-              tabPanel("stats",
-                       mod_stat_choice_ui("stat_choice")
-              ),
+             tabPanel("stats",
+                      mod_stat_choice_ui("stat_choice")
+             ),
              tabPanel("conclusion",
                       mod_conclusion_ui("conclusion")
              ),
@@ -65,7 +65,14 @@ ui <- fluidPage(
              ),
              tabPanel("tool_stat_anova",
                       mod_stat_anova_ui("stat_anova")
+             ),
+             footer = column(12, offset = 5,
+                             br(),
+                             #tags$div(class = "left-border",
+                                      actionButton("return_nav", "Retour au menu navigation")
+                             #)
              )
+
 
 
   ),

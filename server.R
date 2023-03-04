@@ -1,6 +1,7 @@
 library(kableExtra)
 library(dplyr)
 library(ggplot2)
+library(multcomp)
 
 source(".config")
 
@@ -54,8 +55,11 @@ server <- function(input, output, session) {
   # navigation menu
   mod_navigation_server("navigation", parent_session = session)
 
-  # button modules
-  mod_button_return_nav_server("return_nav", parent_session = session)
+  # button return navigation menu
+  observeEvent(input$return_nav,{
+    updateTabsetPanel(session, "vigie_nature_analyse",
+                      selected = "navigation")
+  })
 
 
 }
