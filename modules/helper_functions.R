@@ -24,3 +24,10 @@ filter_and_update_datasets <- function(analysis_history, input_to_update, sessio
     }
   }
 }
+
+# function to perform post hoc test in the module anova
+myglht <- function (res = NULL, fact = NULL) {
+  glht(res,
+       linfct = do.call(mcp, setNames(list("Tukey"), fact))
+  )
+}
