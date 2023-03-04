@@ -32,7 +32,8 @@ mod_stat_anova_ui <- function(id){
                     tags$div(style = 'overflow-x: scroll',
                              tableOutput(ns("dataset_preview"))
                     ),
-                    mod_button_return_nav_ui("return_nav")
+                    plotOutput(ns("plot")),
+                    htmlOutput(ns("resutat_text"))
            )
     )
   )
@@ -46,6 +47,7 @@ mod_stat_anova_server <- function(id, analysis_history, step_nb_react, update_st
     ns <- session$ns
     # add reactive values to store data
     rv <- reactiveValues(active_dataset = NULL,
+                         resutat_text = NULL,
                          error_text_explanatory = NULL,
                          error_text_dependant = NULL,
                          trigger = 0)
@@ -105,39 +107,109 @@ mod_stat_anova_server <- function(id, analysis_history, step_nb_react, update_st
 
       observeEvent(c(input$select_columns_explanatory,
                      input$select_column_dependant),{
-                       if (is.null(rv$error_text_dependant) & is.null(rv$error_text_explanatory)){
+                       if(!is.null(input$select_column_dependant) & !is.null(input$select_columns_explanatory)){
+                         if (is.null(rv$error_text_dependant) & is.null(rv$error_text_explanatory) & !input$select_column_dependant == "" & !input$select_columns_explanatory == ""){
 
+                           multiple  = length(input$select_columns_explanatory) > 1
+
+                           # transform explanatory variable to factor
+                           rv$active_dataset[ , input$select_columns_explanatory] <- as.factor(rv$active_dataset[ , input$select_columns_explanatory] )
+
+                           if (!multiple){
+                             level_names <- unique(rv$active_dataset[ , input$select_columns_explanatory])
+                             if (length(level_names) > 2){
+                               level_names_formated <- paste(paste(level_names[-length(level_names)], collapse = ", "), level_names[length(level_names)], sep = " et ")
+                             } else {
+                               level_names_formated <-paste(level_names, collapse = " et ")
+                             }
+                           }
+
+                           # Build formula
+                           if (multiple) {
+                             model_formula <- as.formula(paste(
+                               input$select_column_dependant,
+                               " ~ " ,
+                               paste(input$select_columns_explanatory, collapse = ' + '))
+                             )
+
+                           } else {
+                             model_formula <- as.formula(paste(input$select_column_dependant," ~ " , input$select_columns_explanatory))
+                           }
+
+                           # run anova
+                           res <- aov(model_formula, data = rv$active_dataset)
+
+                           # get output from linear model
+                           results <- summary(res)
+
+                           # Prepare Graph
+                           indicateur_mean_max <- rv$active_dataset %>%
+                             group_by_at(input$select_columns_explanatory) %>%
+                             summarise_at(vars(input$select_column_dependant), list(mean = function(x) mean(x, na.rm = TRUE),
+                                                                                    max = function(x) max(x, na.rm = TRUE),
+                                                                                    IC = function (x) {1.96 * sd(x, na.rm = TRUE)/sqrt(length(na.omit(x)))})) %>%
+                             mutate(ICmin = mean - IC,
+                                    ICmax = mean + IC)
+
+                           if (length(input$select_columns_explanatory) == 1){ # anova a un facteur et t.test a implementer
+                             postHocs <- myglht(res = res, fact = input$select_columns_explanatory)
+                             lettersGroupOutput <- cld(postHocs)
+                             vectorLetter <- lettersGroupOutput$mcletters$Letters
+
+                             plot <- ggplot(indicateur_mean_max, aes(x = !!sym(input$select_columns_explanatory), y = mean)) +
+                               geom_point() +
+                               geom_errorbar(aes(ymin = ICmin, ymax = ICmax), width = .2)+
+                               theme_minimal() +
+                               theme(legend.position = "none") +
+                               theme(axis.text.x=element_text(angle = 35, hjust = 1))+
+                               ylab(input$select_column_dependant)
+
+
+                             plot <- plot + annotate("text",
+                                                     x = names(vectorLetter),
+                                                     y = max(indicateur_mean_max$ICmax) + .1 * (max(indicateur_mean_max$ICmax) - min(min(indicateur_mean_max$ICmin))),
+                                                     label = vectorLetter)
+
+                             output$plot <- renderPlot({
+                               plot
+                             })
+
+                           }
+
+                           letterGroup <- unique(unlist(strsplit(as.character(vectorLetter), "")))
+                           rv$resutat_text = "Résultat du test statistique : <br/> <br/>"
+
+                           if (results[[1]]$`Pr(>F)`[1] > 0.05){
+                             rv$resutat_text <- paste(rv$resutat_text, "La variable ", input$select_columns_explanatory, " n'a pas d'effet significatif sur la variable ", input$select_column_dependant,". <br/> <br/>", "Les catégories ", level_names_formated, " ne sont pas significativement différentes.", sep = "")
+                           } else {
+                             rv$resutat_text <- paste(rv$resutat_text, "La variable ", input$select_columns_explanatory, " a un effet significatif sur la variable ", input$select_column_dependant," <br/> <br/>", sep = "")
+
+                             for (i in 1:length(letterGroup)){
+                               positionLetters = grep(pattern = letterGroup[i], vectorLetter)
+                               if (length(positionLetters) > 1){
+                                 rv$resutat_text <- paste(rv$resutat_text, "Les moyennes ne sont significativement pas différente pour les catégories :", paste(names(vectorLetter[positionLetters]),"<br/>", collapse = ", "))
+                               } else {
+                                 rv$resutat_text <- paste(rv$resutat_text, "La catégorie", names(vectorLetter[positionLetters]), "est significativement différente de toutes les autres <br/>")
+                               }
+                             }
+                             #add warning if a variable is in more than one group
+                             # get variables in 2 groups
+                             variablesInTwoGroups <- which(nchar(as.character(vectorLetter))>1)
+                             if (length(variablesInTwoGroups) > 1){
+                               print(paste("Attention les catégories :", names(vectorLetter[variablesInTwoGroups]), "sont présentes dans plusieurs groupes"))
+                             } else if (length(variablesInTwoGroups) == 1){
+                               print(paste("Attention la catégorie :", names(vectorLetter[variablesInTwoGroups]), "est présente dans plusieurs groupes"))
+                             }
+                           }
+                         }
                        }
                      })
 
-      # # calculate dataset
-      # observe({
-      #   if(!is.null(input$select_columns_group) & !is.null(input$select_operation) & !is.null(input$select_column_operation)){
-      #     if(input$select_columns_group != "" && input$select_column_operation != "" && input$select_operation != "") {
-      #
-      #       column_type = class(unlist(rv$active_dataset[input$select_column_operation]))
-      #
-      #       if(input$select_column_operation %in% input$select_columns_group) {
-      #         rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne peut pas être présente deux fois"
-      #       } else if(column_type != "numeric" & column_type != "integer") {
-      #         rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne doit contenir que des nombres"
-      #
-      #       } else {
-      #         cat("  calculate result for preview\n")
-      #
-      #         rv$tool_result <- rv$active_dataset %>%
-      #           group_by_at(input$select_columns_group) %>%
-      #           summarise_at(.vars = input$select_column_operation, .funs = rv$function_calculation)
-      #         rv$error_text <- NULL
-      #       }
-      #     }
-      #   }
-      # })
-      #
-      # # show preview of the filter
-      # output$dataset_preview <- renderTable({
-      #   head(rv$tool_result, 20)
-      # })
+
+      output$resutat_text <- renderText({
+        rv$resutat_text
+      })
+
 
       output$error_explanatory <- renderText({
         rv$error_text_explanatory
