@@ -1,0 +1,35 @@
+---
+title: "Rapport d'analyse de données"
+output: 
+  pdf_document :
+    toc: true
+    number_sections: true
+toc-title: "Résumé"
+sansfont: Raleway
+params:
+  analysis_history: NA
+---
+
+```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+
+# loop around the analysis_history object to print its information content
+for (i in 1:length(params$analysis_history)){
+  # extract current step information
+  current_step <- params$analysis_history[[which(grepl(paste0("Etape_",i), names(params$analysis_history)))]]
+  
+  # if question print only the question text
+  if (current_step$type == "question"){
+  
+  cat("# Question de recherche\n")
+  cat(current_step$question_text, "\n\n")
+  
+  } else if (current_step$type == "dataset"){
+      cat(paste("#", current_step$type_precise, ":", current_step$tool_name, "\n"))
+      cat(paste(current_step$parameters_text, "\n\n"))
+
+  } else if (current_step$type == "graph"){
+    cat(paste("#", current_step$type_precise, ":", current_step$tool_name, "\n\n"))
+    print(current_step$graph)
+  }
+}
+```

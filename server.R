@@ -52,6 +52,10 @@ server <- function(input, output, session) {
   # module to write conclusion
   mod_conclusion_server("conclusion", analysis_history, step_nb_react, parent_session = session)
 
+  # module to download report
+
+  mod_report_server("report", analysis_history)
+
   # navigation menu
   mod_navigation_server("navigation", parent_session = session)
 

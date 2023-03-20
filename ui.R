@@ -48,6 +48,9 @@ ui <- fluidPage(
              tabPanel("stats",
                       mod_stat_choice_ui("stat_choice")
              ),
+             tabPanel("rapport",
+                      mod_report_ui("report")
+             ),
              tabPanel("conclusion",
                       mod_conclusion_ui("conclusion")
              ),
