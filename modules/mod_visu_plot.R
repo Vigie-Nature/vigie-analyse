@@ -66,17 +66,17 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
       filter_and_update_datasets(analysis_history, "select_dataset", parent_session, ns)
     })
 
-      # populate columns with columns names
-      observeEvent(input$select_dataset, {
-        if (!is.null(input$select_dataset) & input$select_dataset != ""){
-          cat("  update columns list\n")
-          # allocate active dataset
-          rv$active_dataset <- analysis_history[[input$select_dataset]][["dataset"]]
-          active_dataset_columns <- colnames(rv$active_dataset)
-          updateSelectInput(session = parent_session, inputId = ns("select_column_x"), choices = active_dataset_columns)
-          updateSelectInput(session = parent_session, inputId = ns("select_column_y"), choices = active_dataset_columns)
-        }
-      })
+    # populate columns with columns names
+    observeEvent(input$select_dataset, {
+      if (!is.null(input$select_dataset) & input$select_dataset != ""){
+        cat("  update columns list\n")
+        # allocate active dataset
+        rv$active_dataset <- analysis_history[[input$select_dataset]][["dataset"]]
+        active_dataset_columns <- colnames(rv$active_dataset)
+        updateSelectInput(session = parent_session, inputId = ns("select_column_x"), choices = active_dataset_columns)
+        updateSelectInput(session = parent_session, inputId = ns("select_column_y"), choices = active_dataset_columns)
+      }
+    })
 
 
 
@@ -118,17 +118,20 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
                          if(input$y_label != "") {
                            rv$tool_result = rv$tool_result + ylab(input$y_label)
                          }
+                         rv$tool_result = rv$tool_result +
+                           theme_minimal() +
+                           theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
                        }
                      }
                    })
 
 
     output$graph_preview <- renderPlot({
-      plot_to_show <- rv$tool_result + theme(axis.text = element_text(size = 20),
-                                             axis.title = element_text(size = 25),
-                                             axis.text.x = element_text(angle = 30, hjust = 1),
-                                             axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
-        theme_minimal()
+      plot_to_show <- rv$tool_result +
+        theme(axis.text = element_text(size = 20),
+              axis.title = element_text(size = 25),
+              axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
       plot_to_show
     })
 
