@@ -59,116 +59,116 @@ mod_manip_group_by_server <- function(id, analysis_history, step_nb_react, updat
 
       # filter datasets only and update the select input list
       filter_and_update_datasets(analysis_history, "select_dataset", parent_session, ns)
+    })
 
-      # populate columns with columns names
-      observeEvent(input$select_dataset, {
-        if (!is.null(input$select_dataset) & input$select_dataset != ""){
-          cat("  update columns list\n")
-          # allocate active dataset
-          rv$active_dataset <- data.frame(analysis_history[[input$select_dataset]][["dataset"]])
-          active_dataset_columns <- colnames(rv$active_dataset)
-          updateSelectInput(session = parent_session, inputId = ns("select_columns_group"), choices = active_dataset_columns)
-          updateSelectInput(session = parent_session, inputId = ns("select_column_operation"), choices = active_dataset_columns)
-        }
-      })
+    # populate columns with columns names
+    observeEvent(input$select_dataset, {
+      if (!is.null(input$select_dataset) & input$select_dataset != ""){
+        cat("  update columns list\n")
+        # allocate active dataset
+        rv$active_dataset <- data.frame(analysis_history[[input$select_dataset]][["dataset"]])
+        active_dataset_columns <- colnames(rv$active_dataset)
+        updateSelectInput(session = parent_session, inputId = ns("select_columns_group"), choices = active_dataset_columns)
+        updateSelectInput(session = parent_session, inputId = ns("select_column_operation"), choices = active_dataset_columns)
+      }
+    })
 
-      # define functions
-      observeEvent(input$select_operation,{
-        if (!is.null(input$select_operation)) {
-          rv$function_calculation <- c()
+    # define functions
+    observeEvent(input$select_operation,{
+      if (!is.null(input$select_operation)) {
+        rv$function_calculation <- c()
 
 
-          if ("moyenne" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "mean")
-          if ("médiane" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "median")
-          if ("somme" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "sum")
-          if ("compte" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "length")
-          if ("compte des valeurs supérieures à zéro" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "count_sup_zero")
-          if ("écart-type" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "sd")
-          if ("erreur standard" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "mean")
+        if ("moyenne" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "mean")
+        if ("médiane" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "median")
+        if ("somme" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "sum")
+        if ("compte" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "length")
+        if ("compte des valeurs supérieures à zéro" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "count_sup_zero")
+        if ("écart-type" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "sd")
+        if ("erreur standard" %in% input$select_operation) rv$function_calculation = c(rv$function_calculation, "mean")
 
-        }
-      })
+      }
+    })
 
-      # calculate dataset
-      observe({
-        if(!is.null(input$select_columns_group) & !is.null(input$select_operation) & !is.null(input$select_column_operation)){
-          if(input$select_columns_group != "" && input$select_column_operation != "" && input$select_operation != "") {
+    # calculate dataset
+    observe({
+      if(!is.null(input$select_columns_group) & !is.null(input$select_operation) & !is.null(input$select_column_operation)){
+        if(input$select_columns_group != "" && input$select_column_operation != "" && input$select_operation != "") {
 
-            column_type = class(unlist(rv$active_dataset[input$select_column_operation]))
+          column_type = class(unlist(rv$active_dataset[input$select_column_operation]))
 
-            if(input$select_column_operation %in% input$select_columns_group) {
-              rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne peut pas être présente deux fois"
-            } else if(column_type != "numeric" & column_type != "integer") {
-              rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne doit contenir que des nombres"
+          if(input$select_column_operation %in% input$select_columns_group) {
+            rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne peut pas être présente deux fois"
+          } else if(column_type != "numeric" & column_type != "integer") {
+            rv$error_text <- "Attention la colonne sur laquelle vous faites le calcul ne doit contenir que des nombres"
 
-            } else {
-              cat("  calculate result for preview\n")
+          } else {
+            cat("  calculate result for preview\n")
 
-              rv$tool_result <- rv$active_dataset %>%
-                group_by_at(input$select_columns_group) %>%
-                summarise_at(.vars = input$select_column_operation, .funs = rv$function_calculation)
-              rv$error_text <- NULL
-            }
+            rv$tool_result <- rv$active_dataset %>%
+              group_by_at(input$select_columns_group) %>%
+              summarise_at(.vars = input$select_column_operation, .funs = rv$function_calculation)
+            rv$error_text <- NULL
           }
         }
-      })
-
-      # show preview of the filter
-      output$dataset_preview <- renderTable({
-        head(rv$tool_result, 20)
-      })
-
-      output$error <- renderText({
-        rv$error_text
-      })
-
-
-
-      # store data
-      observeEvent(input$valid_tool, {
-        cat("  validate result and return from tool\n")
-
-        if(rv$trigger < input$valid_tool) {
-          rv$trigger = rv$trigger + 1
-
-          # record values
-          to_return$dataset  <- rv$tool_result
-          to_return$type <- "dataset"
-          to_return$type_precise <- "Manipulation de données"
-          to_return$tool_name <- "Résumer les données"
-          to_return$parameters <- list() # to do : add parameters for report
-          to_return$parameters_text <- paste("Vous avez regroupé toutes les lignes du jeu de données :",
-                                             input$select_dataset,
-                                             "selon les catégories contenues dans la ou les colonnes :",
-                                             paste(input$select_columns_group, collapse = " "),
-                                             "en faisant la ou les opérations suivantes :",
-                                             paste(input$select_operation, collapse = " "),
-                                             "sur la colonne :",
-                                             input$select_column_operation)
-
-          print(to_return$parameters_text)
-
-
-          # store into reactive value
-          analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
-          mod_history_server("question", analysis_history, step_nb_react())
-
-          # go to next step UI
-          updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
-                            selected = "navigation")
-          cat("increment step_nb_react")
-          step_nb_react(step_nb_react()+1)
-          shinyjs::reset("valid_tool")
-
-          #reset all
-          updateSelectInput(session = parent_session, inputId = ns("select_dataset"), selected = "")
-          updateSelectInput(session = parent_session, inputId = ns("select_columns_group"), selected = "")
-          updateSelectInput(session = parent_session, inputId = ns("select_operation"), selected = "")
-          updateSelectInput(session = parent_session, inputId = ns("select_column_operation"), selected = "")
-        }
-      })
-
+      }
     })
+
+    # show preview of the filter
+    output$dataset_preview <- renderTable({
+      head(rv$tool_result, 20)
+    })
+
+    output$error <- renderText({
+      rv$error_text
+    })
+
+
+
+    # store data
+    observeEvent(input$valid_tool, {
+      cat("  validate result and return from tool\n")
+
+      if(rv$trigger < input$valid_tool) {
+        rv$trigger = rv$trigger + 1
+
+        # record values
+        to_return$dataset  <- rv$tool_result
+        to_return$type <- "dataset"
+        to_return$type_precise <- "Manipulation de données"
+        to_return$tool_name <- "Résumer les données"
+        to_return$parameters <- list() # to do : add parameters for report
+        to_return$parameters_text <- paste("Vous avez regroupé toutes les lignes du jeu de données :",
+                                           input$select_dataset,
+                                           "selon les catégories contenues dans la ou les colonnes :",
+                                           paste(input$select_columns_group, collapse = " "),
+                                           "en faisant la ou les opérations suivantes :",
+                                           paste(input$select_operation, collapse = " "),
+                                           "sur la colonne :",
+                                           input$select_column_operation)
+
+        print(to_return$parameters_text)
+
+
+        # store into reactive value
+        analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
+        mod_history_server("question", analysis_history, step_nb_react())
+
+        # go to next step UI
+        updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+                          selected = "navigation")
+        cat("increment step_nb_react")
+        step_nb_react(step_nb_react()+1)
+        shinyjs::reset("valid_tool")
+
+        #reset all
+        updateSelectInput(session = parent_session, inputId = ns("select_dataset"), selected = "")
+        updateSelectInput(session = parent_session, inputId = ns("select_columns_group"), selected = "")
+        updateSelectInput(session = parent_session, inputId = ns("select_operation"), selected = "")
+        updateSelectInput(session = parent_session, inputId = ns("select_column_operation"), selected = "")
+      }
+    })
+
 
 
   })

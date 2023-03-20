@@ -64,6 +64,7 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
       # populate select with datasets names
       # filter datasets only and update the select input list
       filter_and_update_datasets(analysis_history, "select_dataset", parent_session, ns)
+    })
 
       # populate columns with columns names
       observeEvent(input$select_dataset, {
@@ -77,83 +78,83 @@ mod_visu_plot_server <- function(id, analysis_history, step_nb_react, update_vis
         }
       })
 
-      toListen <- reactive({
-        list(input$select_column_x,
-             input$select_column_y,
-             input$select_type,
-             input$select_dataset,
-             input$y_label,
-             input$x_label)
-      })
-
-      observeEvent(toListen(), {
-        if(!(is.null(input$select_column_x) & is.null(input$select_column_y))) {
-          if(input$select_column_x != "" & input$select_column_y != "") {
-
-            rv$tool_result <- ggplot(rv$active_dataset, aes(!!sym(input$select_column_x),!!sym(input$select_column_y)))
-
-            if(input$select_type == "points") {
-              print("points")
-              rv$tool_result <- rv$tool_result + geom_point()
-            }
-
-            if(input$select_type == "boites de dispersion") {
-              print("boites de dispersion")
-              rv$tool_result <- rv$tool_result + geom_boxplot()
-            }
-
-            if(input$select_type == "lignes") {
-              print("lignes")
-              rv$tool_result <- rv$tool_result + geom_line()
-            }
-
-            if(input$select_type == "barres") {
-              print("barres")
-              rv$tool_result <- rv$tool_result + geom_col()
-            }
-
-            if(input$x_label != "") {
-              rv$tool_result = rv$tool_result + xlab(input$x_label)
-            }
-
-            if(input$y_label != "") {
-              rv$tool_result = rv$tool_result + ylab(input$y_label)
-            }
-          }
-        }
-      })
 
 
-      output$graph_preview <- renderPlot({
-        plot_to_show <- rv$tool_result + theme(axis.text = element_text(size = 20),
-                                               axis.title = element_text(size = 25),
-                                               axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
-        plot_to_show
-      })
+    observeEvent(c(input$select_column_x,
+                   input$select_column_y,
+                   input$select_type,
+                   input$select_dataset,
+                   input$y_label,
+                   input$x_label), {
+                     if(!(is.null(input$select_column_x) & is.null(input$select_column_y))) {
+                       if(input$select_column_x != "" & input$select_column_y != "") {
 
-      # store data
-      observeEvent(input$valid_graph, {
-        cat("  validate result and return from tool\n")
-        # record values
-        to_return$graph  <- rv$tool_result
-        to_return$type <- "graph"
-        to_return$type_precise <- "Visualisation de données"
-        to_return$tool_name <- "Faire un graphique"
-        to_return$parameters <- list() # to do : add parameters for report
-        to_return$parameters_text <- paste("Vous avez fait un joli graphique")
+                         rv$tool_result <- ggplot(rv$active_dataset, aes(!!sym(input$select_column_x),!!sym(input$select_column_y)))
+
+                         if(input$select_type == "points") {
+                           print("points")
+                           rv$tool_result <- rv$tool_result + geom_point()
+                         }
+
+                         if(input$select_type == "boites de dispersion") {
+                           print("boites de dispersion")
+                           rv$tool_result <- rv$tool_result + geom_boxplot()
+                         }
+
+                         if(input$select_type == "lignes") {
+                           print("lignes")
+                           rv$tool_result <- rv$tool_result + geom_line()
+                         }
+
+                         if(input$select_type == "barres") {
+                           print("barres")
+                           rv$tool_result <- rv$tool_result + geom_col()
+                         }
+
+                         if(input$x_label != "") {
+                           rv$tool_result = rv$tool_result + xlab(input$x_label)
+                         }
+
+                         if(input$y_label != "") {
+                           rv$tool_result = rv$tool_result + ylab(input$y_label)
+                         }
+                       }
+                     }
+                   })
 
 
-        # store into reactive value
-        analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
-        mod_history_server("graph", analysis_history, step_nb_react())
-
-        # go to next step UI
-        updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
-                          selected = "navigation")
-        # increment step
-        step_nb_react(step_nb_react() + 1)
-      })
+    output$graph_preview <- renderPlot({
+      plot_to_show <- rv$tool_result + theme(axis.text = element_text(size = 20),
+                                             axis.title = element_text(size = 25),
+                                             axis.text.x = element_text(angle = 30, hjust = 1),
+                                             axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+        theme_minimal()
+      plot_to_show
     })
+
+    # store data
+    observeEvent(input$valid_graph, {
+      cat("  validate result and return from tool\n")
+      # record values
+      to_return$graph  <- rv$tool_result
+      to_return$type <- "graph"
+      to_return$type_precise <- "Visualisation de données"
+      to_return$tool_name <- "Faire un graphique"
+      to_return$parameters <- list() # to do : add parameters for report
+      to_return$parameters_text <- paste("Vous avez fait un joli graphique")
+
+
+      # store into reactive value
+      analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
+      mod_history_server("graph", analysis_history, step_nb_react())
+
+      # go to next step UI
+      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+                        selected = "navigation")
+      # increment step
+      step_nb_react(step_nb_react() + 1)
+    })
+
 
   })
 }
