@@ -42,6 +42,16 @@ mod_import_choice_ui <- function(id) {
 
                                                )
                                ),
+                               bsCollapsePanel(title = "Importer des données issues du protocole biolit",
+                                               tagList(
+                                                 h3("Données issues de Vigie-Nature École (données protocolées)"),
+                                                 rep_br(2),
+                                                 fluidRow(img(src='data_help/donnee_vne.png', align = "center", width="95%")),
+                                                 br(),
+                                                 p("Les données issues de Vigie-Nature École sont organisées d'une manière particulière : chaque ligne représente une espèce. Pour une session d'observation, on aura donc plusieurs lignes (ayant toutes le même numéro d'observation)."),
+                                                 img(src = "picto/Importer.png", height = "30px"), actionButton(ns("import_vne_biolit"), "Importer un jeu de données issu de Vigie-Nature École"),
+                                               )
+                               ),
                                bsCollapsePanel("Importer votre propre jeu de données",
                                                tagList(
 
@@ -137,6 +147,38 @@ mod_import_choice_server <- function(id, analysis_history, step_nb_react, parent
                         selected = "navigation")
 
       updateCollapse(parent_session, id = "collapse_import", close = c("Importer des données sur les oiseaux"))
+
+      cat("increment step_nb_react")
+      step_nb_react(step_nb_react()+1)
+
+    })
+
+
+    # Importation directe des jeux de données
+    observeEvent(input$import_vne_biolit, {
+      cat("import biolit VNE")
+
+      # record values
+      to_return$type <- "dataset"
+      to_return$type_precise <- "Importation de données"
+      to_return$tool_name <- "importer des données Vigie-Nature École"
+      to_return$parameters <- list() # to do : add parameters for report
+      to_return$protocole <- "Biolit Junior"
+      to_return$parameters_text <- paste("Importation du jeu de données issu du protocole :  Biolit Junior")
+
+      to_return$dataset <- data.table::fread(paste0(data_folder, "biolit.csv"))
+
+
+      # store into reactive value
+      analysis_history[[paste0("Etape_", step_nb_react(), " : ", to_return$type_precise)]] <- to_return
+      mod_history_server("import", analysis_history, step_nb_react())
+
+
+      # go to next step UI
+      updateTabsetPanel(session = parent_session, "vigie_nature_analyse",
+                        selected = "navigation")
+
+      #updateCollapse(parent_session, id = "collapse_import", close = c("Importer des données sur les oiseaux"))
 
       cat("increment step_nb_react")
       step_nb_react(step_nb_react()+1)
