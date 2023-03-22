@@ -36,11 +36,14 @@ mod_report_server <- function(id, analysis_history){
         # Copy the report file to a temporary directory before processing it, in
         # case we don't have write permissions to the current working dir (which
         # can happen when deployed).
+        print("before")
         tempReport <- file.path("report.Rmd")
+        print("after")
 
         # Set up parameters to pass to Rmd document
         params <- list(analysis_history = reactiveValuesToList(analysis_history))
 
+        print("after again")
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document
         # from the code in this app).
@@ -48,6 +51,7 @@ mod_report_server <- function(id, analysis_history){
                           params = params,
                           envir = new.env(parent = globalenv())
         )
+        print("last after")
       }
     )
   })
