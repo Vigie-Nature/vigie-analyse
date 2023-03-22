@@ -17,7 +17,6 @@ mod_report_ui <- function(id){
            tags$div(class = "left-border",
                     h2("Manipulation des données"),
                     p("Vous avez maintenant terminé votre analyse, vous pouvez télécharger un rapport contenant toutes les étapes, depuis la questions jusqu'au test statistique"),
-                    actionButton(ns("browser"), "browser"),
                     downloadButton(ns("report"), "Télécharger le rapport")
            )
     )
@@ -30,9 +29,6 @@ mod_report_ui <- function(id){
 mod_report_server <- function(id, analysis_history){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    observeEvent(input$browser,{
-      browser()
-    })
     output$report <- downloadHandler(
       # For PDF output, change this to "report.pdf"
       filename = "report.pdf",
